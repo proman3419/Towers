@@ -3,16 +3,28 @@ import scala.collection
 import scala.util.control.Breaks._
 
 class ProblemCreator(val n: Int){
-    var result: List[List[Int]] = List.empty[List[Int]]
+    var result: Array[Array[Int]] = Array.ofDim[Int](n, n)
 
     def init_problem(){
         for (i <- 0 until n) {
-            result :+ Random.shuffle(List.range(1, n+1))
+            var tmp = Random.shuffle(List.range(1, n+1))
+            for (j <- 0 until tmp.size) {
+                result(i)(j) = tmp(j)
+            }
         }
 
-        var impossibles_per_col = List.empty[collection.mutable.Set[Int]]
+        println("RESULT BEFORE INIT:")
         for (i <- 0 until n) {
-            impossibles_per_col :+ collection.mutable.Set(result(0)(i))
+            for (j <- 0 until n) {
+                print(result(i)(j))
+            }
+            println()
+        }
+        println()
+
+        var impossibles_per_col = Array.ofDim[collection.mutable.Set[Int]](n)
+        for (i <- 0 until n) {
+            impossibles_per_col(i) = collection.mutable.Set(result(0)(i))
         }
 
         for (row <- 1 until n){
@@ -29,6 +41,7 @@ class ProblemCreator(val n: Int){
                                 result(row).updated(changing_col, tmp)
                                 break
                             }
+                            i = i + 1
                         }
                     }
                 }
@@ -39,6 +52,21 @@ class ProblemCreator(val n: Int){
             }
         }
     }
+}
 
+object Appl {
+    def main(args: Array[String]) = {
+        val n = 5
+        val pc = new ProblemCreator(n)
 
+        pc.init_problem()
+
+        println("RESULT AFTER INIT:")
+        for (i <- 0 until n) {
+            for (j <- 0 until n) {
+                print(pc.result(i)(j))
+            }
+            println()
+        }
+    }
 }
