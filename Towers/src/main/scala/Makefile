@@ -1,5 +1,5 @@
 all:
-	scalac logic/Cell.scala logic/Grid.scala
+	scalac logic/*.scala
 	scala Main.scala
 
 clean:
