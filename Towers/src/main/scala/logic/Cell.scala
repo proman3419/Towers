@@ -1,8 +1,8 @@
 package logic
 
 class Cell(
-    val x: Int, 
-    val y: Int, 
+    val row: Int, 
+    val col: Int, 
     val isMutable: Boolean,
     var value: Int
 ) {
