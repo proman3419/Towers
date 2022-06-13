@@ -118,10 +118,11 @@ class ProblemCreator {
         return borderedProblemArr
     }
 
-    def eraseValues(borderedProblemArr: Array[Array[Int]], gameSize: Int, eraseValuesCnt: Int): Array[Array[Int]] = {
+    def eraseValues(borderedProblemArr: Array[Array[Int]], gameSize: Int, difficulty: Difficulties.Difficulty): Array[Array[Int]] = {
         var shuffledIndxes1D = Random.shuffle(List.range(0, gameSize*gameSize))
         var row: Int = 0
         var col: Int = 0
+        var eraseValuesCnt = (gameSize * gameSize * Difficulties.getPercent(difficulty)).toInt
         for (i <- 0 until eraseValuesCnt){
             row = (shuffledIndxes1D(i) / gameSize) + 1 //bordered
             col = (shuffledIndxes1D(i) % gameSize) + 1 //bordered
@@ -130,11 +131,11 @@ class ProblemCreator {
         return borderedProblemArr
     }
 
-    def createProblem(size: Int): Problem = {
+    def createProblem(size: Int, difficulty: Difficulties.Difficulty): Problem = {
         var problemArr: Array[Array[Int]] = createProblemCore(size)
         var borderedProblemArr: Array[Array[Int]] = addBorderValues(problemArr, size)
         var solutionGrid: Grid = new Grid(size+2, borderedProblemArr)
-        var erasedProblemArr: Array[Array[Int]] = eraseValues(borderedProblemArr, size, size)
+        var erasedProblemArr: Array[Array[Int]] = eraseValues(borderedProblemArr, size, difficulty)
         var problemGrid: Grid = new Grid(size+2, erasedProblemArr)
         return new Problem(problemGrid, solutionGrid)
     }
