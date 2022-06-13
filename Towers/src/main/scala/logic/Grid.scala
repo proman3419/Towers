@@ -11,7 +11,7 @@ class Grid(
             val isBorder: Boolean = row % (size-1) == 0 || 
                                     col % (size-1) == 0
             val isEmpty: Boolean = arr(row)(col) == -1
-            cells(row)(col) = new Cell(row, col, !isBorder && isEmpty, 
+            cells(row)(col) = new Cell(row, col, size, !isBorder && isEmpty, 
                 arr(row)(col))
         }
     }

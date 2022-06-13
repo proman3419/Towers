@@ -1,5 +1,5 @@
 // Name of the project
-name := "ScalaFX Hello World"
+name := "Towers"
 
 // Project version
 version := "18.0.1-R27"
@@ -12,7 +12,7 @@ libraryDependencies += "org.scalafx" %% "scalafx" % "18.0.1-R27"
 
 scalacOptions ++= Seq("-unchecked", "-deprecation", "-encoding", "utf8", "-feature")
 
-mainClass := Some("hello.ScalaFXHelloWorld")
+mainClass := Some("visualization.VisualizationWrapper")
 
 // Fork a new JVM for 'run' and 'test:run', to avoid JavaFX double initialization problems
 fork := true
