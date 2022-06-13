@@ -5,51 +5,54 @@ import indigo.scenes._
 
 object GameScene extends Scene[Unit, Unit, Unit]:
 
-  type SceneModel     = Unit
-  type SceneViewModel = Unit
+    type SceneModel         = Unit
+    type SceneViewModel = Unit
 
-  val name: SceneName =
-    SceneName("game")
+    ProblemCreator problemCreator = new ProblemCreator()
+    Problem problem = problemCreator.createProblem(5)
 
-  val modelLens: Lens[Unit, Unit] =
-    Lens.keepLatest
+    val name: SceneName =
+        SceneName("game")
 
-  val viewModelLens: Lens[Unit, Unit] =
-    Lens.keepLatest
+    val modelLens: Lens[Unit, Unit] =
+        Lens.keepLatest
 
-  val eventFilters: EventFilters =
-    EventFilters.Permissive
+    val viewModelLens: Lens[Unit, Unit] =
+        Lens.keepLatest
 
-  val subSystems: Set[SubSystem] =
-    Set()
+    val eventFilters: EventFilters =
+        EventFilters.Permissive
 
-  def updateModel(
-      context: FrameContext[Unit],
-      model: Unit
-  ): GlobalEvent => Outcome[Unit] =
-    _ => Outcome(model)
+    val subSystems: Set[SubSystem] =
+        Set()
 
-  def updateViewModel(
-      context: FrameContext[Unit],
-      model: Unit,
-      viewModel: Unit
-  ): GlobalEvent => Outcome[Unit] =
-    _ => Outcome(viewModel)
+    def updateModel(
+            context: FrameContext[Unit],
+            model: Unit
+    ): GlobalEvent => Outcome[Unit] =
+        _ => Outcome(model)
 
-  def present(
-      context: FrameContext[Unit],
-      model: Unit,
-      viewModel: Unit
-  ): Outcome[SceneUpdateFragment] =
-    Outcome(
-      SceneUpdateFragment(
-        Shape
-          .Box(
-            Rectangle(0, 0, 60, 60),
-            Fill.LinearGradient(Point(0), RGBA.Magenta, Point(45), RGBA.Cyan)
-          )
-          .withRef(30, 30)
-          .moveTo(100, 100)
-          .rotateTo(Radians.fromSeconds(context.running * 0.25))
-      )
-    )
+    def updateViewModel(
+            context: FrameContext[Unit],
+            model: Unit,
+            viewModel: Unit
+    ): GlobalEvent => Outcome[Unit] =
+        _ => Outcome(viewModel)
+
+    def present(
+            context: FrameContext[Unit],
+            model: Unit,
+            viewModel: Unit
+    ): Outcome[SceneUpdateFragment] =
+        Outcome(
+            SceneUpdateFragment(
+                Shape
+                    .Box(
+                        Rectangle(0, 0, 60, 60),
+                        Fill.LinearGradient(Point(0), RGBA.Magenta, Point(45), RGBA.Cyan)
+                    )
+                    .withRef(30, 30)
+                    .moveTo(100, 100)
+                    .rotateTo(Radians.fromSeconds(context.running * 0.25))
+            )
+        )
