@@ -92,39 +92,40 @@ class ProblemCreator {
         for (i <- 1 to size) {
             var maxValues: Array[Int] = Array.fill[Int](4)(0)
             for (j <- 1 to size) {
-                if (maxValues(0) < borderedProblemArr(i)(j)) {
-                    borderedProblemArr(0)(i) += 1
+                //left border
+                if (maxValues(0) < borderedProblemArr(i)(j)){
+                    borderedProblemArr(i)(0) += 1
                     maxValues(0) = borderedProblemArr(i)(j)
                 }
-                if (maxValues(1) < borderedProblemArr(i)(j)) {
-                    borderedProblemArr(i)(0) += 1
-                    maxValues(1) = borderedProblemArr(i)(j)
+                //right border
+                if (maxValues(1) < borderedProblemArr(i)(size + 1 - j)){
+                    borderedProblemArr(i)(size+1) += 1
+                    maxValues(1) = borderedProblemArr(i)(size + 1 - j)
                 }
-                if (maxValues(2) < borderedProblemArr(i)(size-j+1)) {
-                    borderedProblemArr(i)(borderedSize-1) += 1
-                    maxValues(2) = borderedProblemArr(i)(size-j+1)
+                //top border
+                if (maxValues(2) < borderedProblemArr(j)(i)){
+                    borderedProblemArr(0)(i) += 1
+                    maxValues(2) = borderedProblemArr(j)(i)
                 }
-                if (maxValues(3) < borderedProblemArr(size-j+1)(i)) {
-                    borderedProblemArr(borderedSize-1)(i) += 1
-                    maxValues(3) = borderedProblemArr(size-j+1)(i)
+                //down border
+                if (maxValues(3) < borderedProblemArr(size + 1 - j)(i)){
+                    borderedProblemArr(size+1)(i) += 1
+                    maxValues(3) = borderedProblemArr(size + 1 - j)(i)
                 }
             }
         }
+
         return borderedProblemArr
     }
 
-    def eraseValues(borderedProblemArr: Array[Array[Int]], borderedSize: Int, eraseValuesCnt: Int): Array[Array[Int]] = {
-        var erasedValues: Int = 0
-        for (row <- 1 until borderedSize-1) {
-            for (col <- 1 until borderedSize-1) {
-                if (erasedValues < eraseValuesCnt) {
-                    borderedProblemArr(row)(col) = -1
-                    erasedValues = erasedValues + 1
-                }
-                else {
-                    return borderedProblemArr
-                }
-            }
+    def eraseValues(borderedProblemArr: Array[Array[Int]], gameSize: Int, eraseValuesCnt: Int): Array[Array[Int]] = {
+        var shuffledIndxes1D = Random.shuffle(List.range(0, gameSize*gameSize))
+        var row: Int = 0
+        var col: Int = 0
+        for (i <- 0 until eraseValuesCnt){
+            row = (shuffledIndxes1D(i) / gameSize) + 1 //bordered
+            col = (shuffledIndxes1D(i) % gameSize) + 1 //bordered
+            borderedProblemArr(row)(col) = -1
         }
         return borderedProblemArr
     }
@@ -133,7 +134,7 @@ class ProblemCreator {
         var problemArr: Array[Array[Int]] = createProblemCore(size)
         var borderedProblemArr: Array[Array[Int]] = addBorderValues(problemArr, size)
         var solutionGrid: Grid = new Grid(size+2, borderedProblemArr)
-        var erasedProblemArr: Array[Array[Int]] = eraseValues(borderedProblemArr, size+2, size)
+        var erasedProblemArr: Array[Array[Int]] = eraseValues(borderedProblemArr, size, size)
         var problemGrid: Grid = new Grid(size+2, erasedProblemArr)
         return new Problem(problemGrid, solutionGrid)
     }
