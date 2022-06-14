@@ -6,6 +6,5 @@ object Main {
     def main(args: Array[String]) = {
         val pc: ProblemCreator = new ProblemCreator()
         val problem: Problem = pc.createProblem(5, Difficulties.Hard)
-        println(problem.problem)
     }
 }
