@@ -19,6 +19,8 @@ class Visualization() extends VBox {
     val problemCreator = new ProblemCreator()
     var difficulty: Difficulties.Difficulty = Difficulties.Easy
     var gameSize: Int = 5
+    var problem: Problem = problemCreator.createProblem(this.gameSize, this.difficulty)
+    val grid = new Grid(this.gameSize+2, problem.problem.arr)
     displayMenu()
 
     def displayMenu(){
@@ -34,16 +36,21 @@ class Visualization() extends VBox {
         this.children = Array(infoLabel, sizeField, buttonEasy, buttonMiddle, buttonHard)
     }
 
-    def displayTowers(){
-        val problem = problemCreator.createProblem(this.gameSize, this.difficulty)
-        val grid = new Grid(this.gameSize+2, problem.problem.arr)
-        val gridVisualization = new GridVisualization(grid)
+    def displayTowers() {
+        val gridVisualization = new GridVisualization(grid, problem, this)
         this.children = Array(gridVisualization)
     }
 
+
     def setSizeAndDisplayTowers(){
         this.gameSize = 5
-        displayTowers()
+        this.displayTowers()
+    }
+
+    def checkWin() {
+        if (problem.verifyPlayerSolution(grid)) {
+            this.children = Array(new WinScene)
+        }
     }
     def startEasyGame(event: ActionEvent): Unit = {
         this.difficulty = Difficulties.Easy

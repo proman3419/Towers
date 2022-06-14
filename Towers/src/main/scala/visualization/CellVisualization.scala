@@ -1,6 +1,9 @@
 package visualization
 
 import logic.Cell
+import logic.Grid
+import logic.Problem
+import visualization.Visualization
 import scalafx.geometry.Pos
 import scalafx.scene.control.Button
 import scala.collection.mutable
@@ -9,7 +12,8 @@ import scalafx.Includes._
 
 class CellVisualization(
     var cell: Cell, 
-    val size: Int
+    val size: Int,
+    val visualizationMain: Visualization
 ) extends Button {
     this.text = cell.value.toString
     this.onAction = onButtonClick
@@ -35,5 +39,6 @@ class CellVisualization(
     def onButtonClick(event: ActionEvent): Unit = {
         cell.nextValue()
         this.text = cell.value.toString
+        visualizationMain.checkWin()
     }
 }

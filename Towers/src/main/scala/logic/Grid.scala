@@ -19,4 +19,20 @@ class Grid(
     def toString: String = {
         cells.map(_.mkString(" ")).mkString("\n")
     }
+
+    override
+    def equals(other: Any): Boolean = {
+        other match {
+            case o: Grid => {
+                var equal: Boolean = true
+                for (row <- 0 until size) {
+                    for (col <- 0 until size) {
+                        equal = equal && (this.cells(row)(col).value == o.cells(row)(col).value)
+                    }
+                }
+                equal
+            }
+            case _ => false
+        }
+    }
 }
