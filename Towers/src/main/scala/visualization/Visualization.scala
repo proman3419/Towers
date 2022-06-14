@@ -20,7 +20,7 @@ class Visualization() extends VBox {
     var difficulty: Difficulties.Difficulty = Difficulties.Easy
     var gameSize: Int = 5
     var problem: Problem = problemCreator.createProblem(this.gameSize, this.difficulty)
-    val grid = new Grid(this.gameSize+2, problem.problem.arr)
+    var grid = new Grid(this.gameSize+2, problem.problem.arr)
     displayMenu()
 
     def displayMenu(): Unit = {
@@ -40,10 +40,11 @@ class Visualization() extends VBox {
     }
 
     def displayTowers(): Unit = {
+        problem = problemCreator.createProblem(this.gameSize, this.difficulty)
+        grid = new Grid(this.gameSize+2, problem.problem.arr)
         val gridVisualization = new GridVisualization(grid, problem, this)
         this.children = Array(gridVisualization)
     }
-
 
     def setSizeAndDisplayTowers(): Unit = {
         this.gameSize = 5
