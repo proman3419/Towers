@@ -15,6 +15,7 @@ class WinScene() extends VBox {
     victoryLabel.style = "-fx-font-size: 36px; -fx-text-fill: green; -fx-font-weight: bold;"
 
     val returnButton = new Button("Main menu")
+    returnButton.style = "-fx-font-size: 24px;"
     returnButton.onAction = onReturnButtonClick
 
     def onReturnButtonClick(event: ActionEvent): Unit = {

@@ -23,35 +23,39 @@ class Visualization() extends VBox {
     val grid = new Grid(this.gameSize+2, problem.problem.arr)
     displayMenu()
 
-    def displayMenu(){
-        val infoLabel = new Label("Menu")
+    def displayMenu(): Unit = {
+        val infoLabel = new Label("MENU")
+        infoLabel.style = "-fx-font-size: 36px; -fx-font-weight: bold;"
         val buttonEasy = new Button("Start Easy")
+        buttonEasy.style = "-fx-font-size: 24px;"
         buttonEasy.onAction = startEasyGame
         val buttonMiddle = new Button("Start Middle")
+        buttonMiddle.style = "-fx-font-size: 24px;"
         buttonMiddle.onAction = startMiddleGame
         val buttonHard = new Button("Start Hard")
+        buttonHard.style = "-fx-font-size: 24px;"
         buttonHard.onAction = startHardGame
-        val sizeField = new TextField()
 
-        this.children = Array(infoLabel, sizeField, buttonEasy, buttonMiddle, buttonHard)
+        this.children = Array(infoLabel, buttonEasy, buttonMiddle, buttonHard)
     }
 
-    def displayTowers() {
+    def displayTowers(): Unit = {
         val gridVisualization = new GridVisualization(grid, problem, this)
         this.children = Array(gridVisualization)
     }
 
 
-    def setSizeAndDisplayTowers(){
+    def setSizeAndDisplayTowers(): Unit = {
         this.gameSize = 5
         this.displayTowers()
     }
 
-    def checkWin() {
+    def checkWin(): Unit = {
         if (problem.verifyPlayerSolution(grid)) {
             this.children = Array(new WinScene)
         }
     }
+
     def startEasyGame(event: ActionEvent): Unit = {
         this.difficulty = Difficulties.Easy
         setSizeAndDisplayTowers()
