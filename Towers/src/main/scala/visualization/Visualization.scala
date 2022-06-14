@@ -5,8 +5,9 @@ import visualization._
 import scalafx.Includes._
 import scalafx.event.ActionEvent
 import scalafx.geometry.Pos
-import scalafx.scene.control.{Button, Label}
+import scalafx.scene.control.{Button, Label, TextField, ChoiceBox}
 import scalafx.scene.layout.VBox
+import scalafx.collections.ObservableBuffer
 
 import scala.collection.mutable
 
@@ -21,11 +22,16 @@ class Visualization() extends VBox {
     displayMenu()
 
     def displayMenu(){
-        var infoText = "Some info text"
-        val info = new Label(infoText)
-        val button = new Button("Start")
-        button.onAction = onButtonClick
-        this.children = Array(info, button)
+        val infoLabel = new Label("Menu")
+        val buttonEasy = new Button("Start Easy")
+        buttonEasy.onAction = startEasyGame
+        val buttonMiddle = new Button("Start Middle")
+        buttonMiddle.onAction = startMiddleGame
+        val buttonHard = new Button("Start Hard")
+        buttonHard.onAction = startHardGame
+        val sizeField = new TextField()
+
+        this.children = Array(infoLabel, sizeField, buttonEasy, buttonMiddle, buttonHard)
     }
 
     def displayTowers(){
@@ -35,9 +41,22 @@ class Visualization() extends VBox {
         this.children = Array(gridVisualization)
     }
 
-    def onButtonClick(event: ActionEvent): Unit = {
-        // this.difficulty = "something"
-        // this.gameSize = 12
+    def setSizeAndDisplayTowers(){
+        this.gameSize = 5
         displayTowers()
+    }
+    def startEasyGame(event: ActionEvent): Unit = {
+        this.difficulty = Difficulties.Easy
+        setSizeAndDisplayTowers()
+    }
+
+    def startMiddleGame(event: ActionEvent): Unit = {
+        this.difficulty = Difficulties.Middle
+        setSizeAndDisplayTowers()
+    }
+
+    def startHardGame(event: ActionEvent): Unit = {
+        this.difficulty = Difficulties.Hard
+        setSizeAndDisplayTowers()
     }
 }
