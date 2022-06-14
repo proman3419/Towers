@@ -2,13 +2,15 @@ package visualization
 
 import logic.Grid
 import logic.Problem
+import visualization.Visualization
 import scalafx.geometry.Pos
 import scalafx.scene.layout.{ColumnConstraints, GridPane, RowConstraints}
 import scala.collection.mutable
 
 class GridVisualization(
     var grid: Grid,
-    var problem: Problem
+    var problem: Problem,
+    val visualizationMain: Visualization
 ) extends GridPane {
     val cellSize = 100
     alignment = Pos.Center
@@ -25,7 +27,7 @@ class GridVisualization(
 
     def drawCells(): Unit = {
         for (cell <- grid.cells.flatMap(_.toList)) {
-            this.add(new CellVisualization(cell, cellSize, grid, problem), 
+            this.add(new CellVisualization(cell, cellSize, visualizationMain), 
                 cell.row, cell.col)
         }
     }

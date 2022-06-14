@@ -31,8 +31,14 @@ class Visualization() extends VBox {
     }
 
     def displayTowers() {
-        val gridVisualization = new GridVisualization(grid, problem)
+        val gridVisualization = new GridVisualization(grid, problem, this)
         this.children = Array(gridVisualization)
+    }
+
+    def checkWin() {
+        if (problem.verifyPlayerSolution(grid)) {
+            this.children = Array(new WinScene)
+        }
     }
 
     def onButtonClick(event: ActionEvent): Unit = {

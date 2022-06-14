@@ -13,8 +13,7 @@ import scalafx.Includes._
 class CellVisualization(
     var cell: Cell, 
     val size: Int,
-    var playerSolution: Grid,
-    var problem: Problem
+    val visualizationMain: Visualization
 ) extends Button {
     this.text = cell.value.toString
     this.onAction = onButtonClick
@@ -40,6 +39,6 @@ class CellVisualization(
     def onButtonClick(event: ActionEvent): Unit = {
         cell.nextValue()
         this.text = cell.value.toString
-        println(problem.verifyPlayerSolution(playerSolution))
+        visualizationMain.checkWin()
     }
 }
