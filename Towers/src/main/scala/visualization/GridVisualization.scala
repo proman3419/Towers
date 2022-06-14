@@ -9,16 +9,14 @@ class GridVisualization(
     var grid: Grid
 ) extends GridPane {
     val cellSize = 100
-
     alignment = Pos.Center
     this.drawGrid()
-
+    this.gridLinesVisible = false
+    
     def drawGrid(): Unit = {
-        this.gridLinesVisible = false
         this.columnConstraints = for (i <- 0 until grid.size) yield new ColumnConstraints(cellSize)
         this.rowConstraints = for (i <- 0 until grid.size) yield new RowConstraints(cellSize)
         this.children = Array()
-        this.gridLinesVisible = true
 
         drawCells()
     }
