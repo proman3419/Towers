@@ -53,7 +53,7 @@ class ProblemCreator {
                                 var tmp = problemArr(row)(col)
                                 problemArr(row)(col) = problemArr(row)(changing_col)
                                 problemArr(row)(changing_col) = tmp
-                                break
+                                break()
                             }
                             i = i + 1
                         }

@@ -7,6 +7,8 @@ class Cell(
     val isMutable: Boolean,
     var value: Int
 ) {
+    val problemSize: Int = gridSize - 2
+
     def setValue(value: Int): Unit = {
         if (isMutable) {
             this.value = value
@@ -15,7 +17,7 @@ class Cell(
 
     def nextValue(): Unit = {
         if (isMutable) {
-            value = (value + 1) % (gridSize + 1)
+            value = (value + 1) % (problemSize + 1)
         }
     }
 
