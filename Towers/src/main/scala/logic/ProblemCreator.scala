@@ -126,7 +126,7 @@ class ProblemCreator {
         for (i <- 0 until eraseValuesCnt){
             row = (shuffledIndxes1D(i) / gameSize) + 1 //bordered
             col = (shuffledIndxes1D(i) % gameSize) + 1 //bordered
-            borderedProblemArr(row)(col) = -1
+            borderedProblemArr(row)(col) = 0
         }
         return borderedProblemArr
     }

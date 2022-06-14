@@ -18,7 +18,7 @@ class Visualization() extends VBox {
 
     val problemCreator = new ProblemCreator()
     val problem = problemCreator.createProblem(5, Difficulties.Easy)
-    val grid = new Grid(5, problem.problem.arr)
+    val grid = new Grid(5+2, problem.problem.arr)
 
     val gridVisualization = new GridVisualization(grid)
 
