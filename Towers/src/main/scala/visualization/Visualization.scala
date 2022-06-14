@@ -13,23 +13,31 @@ import scala.collection.mutable
 class Visualization() extends VBox {
     this.alignment = Pos.Center
     this.prefWidth = 800
-    this.prefHeight = 600
+    this.prefHeight = 800
     this.spacing = 20
-
     val problemCreator = new ProblemCreator()
-    val problem = problemCreator.createProblem(5, Difficulties.Easy)
-    val grid = new Grid(5+2, problem.problem.arr)
+    var difficulty: Difficulties.Difficulty = Difficulties.Easy
+    var gameSize: Int = 5
+    displayMenu()
 
-    val gridVisualization = new GridVisualization(grid)
-
-    var infoText = "Some info text"
-    val info = new Label(infoText)
-    val button = new Button("Click me")
-    button.onAction = onButtonClick
-
-    def onButtonClick(event: ActionEvent): Unit = {
-        println("Clicked a button")
+    def displayMenu(){
+        var infoText = "Some info text"
+        val info = new Label(infoText)
+        val button = new Button("Start")
+        button.onAction = onButtonClick
+        this.children = Array(info, button)
     }
 
-    children = Array(gridVisualization)
+    def displayTowers(){
+        val problem = problemCreator.createProblem(this.gameSize, this.difficulty)
+        val grid = new Grid(this.gameSize+2, problem.problem.arr)
+        val gridVisualization = new GridVisualization(grid)
+        this.children = Array(gridVisualization)
+    }
+
+    def onButtonClick(event: ActionEvent): Unit = {
+        // this.difficulty = "something"
+        // this.gameSize = 12
+        displayTowers()
+    }
 }
