@@ -12,10 +12,11 @@ class GridVisualization(
     var problem: Problem,
     val visualizationMain: Visualization
 ) extends GridPane {
-    val cellSize = 100
+    val cellSize = visualizationMain.prefWidth.toInt / grid.size
     alignment = Pos.Center
     this.drawGrid()
     this.gridLinesVisible = false
+    visualizationMain.style = "-fx-padding: 0px;"
     
     def drawGrid(): Unit = {
         this.columnConstraints = for (i <- 0 until grid.size) yield new ColumnConstraints(cellSize)

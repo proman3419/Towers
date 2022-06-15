@@ -21,11 +21,16 @@ class Visualization() extends VBox {
     var gameSize: Int = 5
     var problem: Problem = problemCreator.createProblem(this.gameSize, this.difficulty)
     var grid = new Grid(this.gameSize+2, problem.problem.arr)
+    val sizeField = new TextField()
+    this.style = "-fx-padding: 200px;"
     displayMenu()
 
     def displayMenu(): Unit = {
         val infoLabel = new Label("MENU")
         infoLabel.style = "-fx-font-size: 36px; -fx-font-weight: bold;"
+        val sizeLabel = new Label("Size")
+        sizeLabel.style = "-fx-font-size: 24px;"
+        this.sizeField.style = "-fx-alignment: center;"
         val buttonEasy = new Button("Start Easy")
         buttonEasy.style = "-fx-font-size: 24px;"
         buttonEasy.onAction = startEasyGame
@@ -35,8 +40,7 @@ class Visualization() extends VBox {
         val buttonHard = new Button("Start Hard")
         buttonHard.style = "-fx-font-size: 24px;"
         buttonHard.onAction = startHardGame
-
-        this.children = Array(infoLabel, buttonEasy, buttonMiddle, buttonHard)
+        this.children = Array(infoLabel, sizeLabel, sizeField, buttonEasy, buttonMiddle, buttonHard)
     }
 
     def displayTowers(): Unit = {
@@ -47,7 +51,7 @@ class Visualization() extends VBox {
     }
 
     def setSizeAndDisplayTowers(): Unit = {
-        this.gameSize = 5
+        this.gameSize = this.sizeField.getText().toInt
         this.displayTowers()
     }
 

@@ -25,9 +25,9 @@ class CellVisualization(
         if (cell.isCorner)
             this.text = ""
         if (cell.isBorder)
-            return "-fx-background-color: #dea0be; -fx-font-size: 32px"
+            return "-fx-background-color: #dea0be; -fx-font-size: 24px"
         
-        var style: String = "-fx-font-size: 32px; -fx-border-size: 20px; -fx-border-style: solid;"
+        var style: String = "-fx-font-size: 24px; -fx-border-size: 20px; -fx-border-style: solid;"
         if (cell.isMutable)
             style = style + "-fx-background-color: #9595b7;" 
         else 
